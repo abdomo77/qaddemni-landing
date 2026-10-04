@@ -175,8 +175,8 @@ footer{text-align:center;color:#5f7299;padding:10px 0 40px;font-size:14px}
  if(!reduce)setInterval(add,2200);
  var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}})},{threshold:.15});
  document.querySelectorAll('.rv').forEach(function(x){io.observe(x)});
- document.querySelectorAll('form').forEach(function(f){f.addEventListener('submit',function(ev){ev.preventDefault();var m=f.querySelector('input').value;location.href='mailto:hello@qaddemni.com?subject='+encodeURIComponent('تسجيل اهتمام - قدمني')+'&body='+encodeURIComponent('إيميلي: '+m)})});
+ document.querySelectorAll('form').forEach(function(f){f.addEventListener('submit',function(ev){ev.preventDefault();var inp=f.querySelector('input'),b=f.querySelector('button'),t=b.textContent;b.disabled=true;b.textContent='...';var fd=new FormData();fd.append('email',inp.value);fd.append('_subject','تسجيل اهتمام جديد - قدمني');fd.append('_captcha','false');fd.append('_template','table');fetch('https://formsubmit.co/ajax/d1229cceffa2fd2220cae70eee9550c7',{method:'POST',headers:{'Accept':'application/json'},body:fd}).then(function(r){return r.json()}).then(function(d){if(d.success==='true'||d.success===true){inp.value='';b.textContent='تم التسجيل ✓';setTimeout(function(){b.textContent=t;b.disabled=false},4000)}else{throw 0}}).catch(function(){b.textContent='حصل خطأ، جرّب تاني';setTimeout(function(){b.textContent=t;b.disabled=false},3000)})})});
 })();
 </script>
 </body>
-</html>
+    </html>
